@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunday Infinity Tours and Travels | Armenia & Beyond</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================== GLOBAL STYLES ==================== */
+        :root {
+            --primary-gold: #F5A623;
+            --primary-gold-dark: #D48806;
+            --navy-blue: #0B1B3D;
+            --navy-blue-light: #162C5B;
+            --accent-red: #E74C3C;
+            --bg-light: #F8F9FA;
+            --text-dark: #2C3E50;
+            --text-muted: #6C757D;
+            --white: #FFFFFF;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--navy-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-gold {
+            background-color: var(--primary-gold);
+            color: var(--navy-blue);
+        }
+
+        .btn-gold:hover {
+            background-color: var(--primary-gold-dark);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-navy {
+            background-color: var(--navy-blue);
+            color: var(--white);
+        }
+
+        .btn-navy:hover {
+            background-color: var(--navy-blue-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--navy-blue);
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--navy-blue);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary-gold);
+        }
+
+        .logo-text {
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .logo-text span {
+            color: var(--primary-gold);
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .lang-select {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 4px;
+            outline: none;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .lang-select option {
+            background: var(--navy-blue);
+            color: var(--white);
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(11, 27, 61, 0.75), rgba(11, 27, 61, 0.75)), 
+                        url('https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-gold);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 35px;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Search / Quick Inquiry Bar */
+        .search-bar-container {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--navy-blue);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .form-group select, .form-group input {
+            padding: 12px 15px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        /* ==================== SERVICES SECTION ==================== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-bottom: 4px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-gold);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(245, 166, 35, 0.15);
+            color: var(--primary-gold-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+        }
+
+        .service-card h3 {
+            color: var(--navy-blue);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* ==================== PACKAGES SECTION ==================== */
+        .packages {
+            background-color: var(--white);
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .package-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: var(--white);
+            transition: var(--transition);
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .package-img {
+            height: 220px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-gold);
+            color: var(--navy-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .package-content {
+            padding: 25px;
+        }
+
+        .package-content h3 {
+            color: var(--navy-blue);
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+
+        .package-info {
+            display: flex;
+            gap: 15px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .package-info i {
+            color: var(--primary-gold-dark);
+        }
+
+        .package-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #E0E0E0;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--navy-blue);
+        }
+
+        /* ==================== VISA & JOBS SECTION ==================== */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .info-box {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-box h3 {
+            color: var(--navy-blue);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-box h3 i {
+            color: var(--primary-gold);
+        }
+
+        .feature-list {
+            margin-bottom: 30px;
+        }
+
+        .feature-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-dark);
+        }
+
+        .feature-list i {
+            color: #2ECC71;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background-color: var(--navy-blue);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col p, .footer-col li {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary-gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-gold);
+            color: var(--navy-blue);
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .split-section { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Mobile menu toggler can be added */
+            .search-bar-container { margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-infinity"></i>
+                <div class="logo-text">
+                    SUNDAY INFINITY
+                    <span>TOURS & TRAVELS</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#packages">Tour Packages</a></li>
+                <li><a href="#visa">Visa Assistance</a></li>
+                <li><a href="#jobs">Job Vacancies</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+            <select class="lang-select">
+                <option value="en">EN</option>
+                <option value="hy">AM</option>
+                <option value="ru">RU</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Discover Armenia & <span>The World</span></h1>
+            <p>Your trusted travel partner based in Yerevan. Specialized in customized holiday packages, fast-track visa approvals, and global job placements.</p>
+            <div class="hero-buttons">
+                <a href="#packages" class="btn btn-gold">Explore Tours</a>
+                <button onclick="openModal('Visa Inquiry')" class="btn btn-outline">Check Visa Eligibility</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK SEARCH / INQUIRY BAR -->
+    <div class="container">
+        <div class="search-bar-container">
+            <form class="search-form" onsubmit="handleSearch(event)">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-briefcase"></i> Service Needed</label>
+                    <select id="service-type">
+                        <option value="tour">Holiday Package</option>
+                        <option value="visa">Visa Assistance</option>
+                        <option value="job">Job Vacancies</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-location-dot"></i> Destination / Country</label>
+                    <select id="destination">
+                        <option value="armenia">Armenia</option>
+                        <option value="dubai">UAE / Dubai</option>
+                        <option value="schengen">Schengen Europe</option>
+                        <option value="georgia">Georgia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-calendar-days"></i> Travel Date</label>
+                    <input type="date">
+                </div>
+                <button type="submit" class="btn btn-navy"><i class="fa-solid fa-magnifying-glass"></i> Find Options</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SERVICES SECTION -->
+    <section class="section-padding" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Premium Services</h2>
+                <p>We handle all aspects of your travel and career journeys with professionalism and care.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                    <h3>Holiday Packages</h3>
+                    <p>Tailor-made itineraries across Armenia, Georgia, and international hotspots.</p>
+                    <a href="#packages" style="color: var(--primary-gold-dark); font-weight: 600;">View Packages &rarr;</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-passport"></i></div>
+                    <h3>Visa Approvals</h3>
+                    <p>Expert consultation and high-success documentation support for tourist & work visas.</p>
+                    <a href="#visa" style="color: var(--primary-gold-dark); font-weight: 600;">Learn More &rarr;</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3>Job Vacancies</h3>
+                    <p>Connecting candidates with verified employers in Armenia and abroad.</p>
+                    <a href="#jobs" style="color: var(--primary-gold-dark); font-weight: 600;">Apply Now &rarr;</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-hotel"></i></div>
+                    <h3>Flights & Hotels</h3>
+                    <p>Hassle-free flight ticketing and luxury or budget hotel bookings globally.</p>
+                    <a href="#contact" style="color: var(--primary-gold-dark); font-weight: 600;">Inquire Now &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES SECTION -->
+    <section class="section-padding packages" id="packages">
+        <div class="container">
+            <div class="section-header">
+                <h2>Popular Tour Packages</h2>
+                <p>Explore our top recommended travel itineraries in Armenia and neighboring regions.</p>
+            </div>
+            <div class="package-grid">
+                
+                <!-- Package 1 -->
+                <div class="package-card">
+                    <div class="package-img" style="background-image: url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=600&q=80');">
+                        <span class="package-badge">Bestseller</span>
+                    </div>
+                    <div class="package-content">
+                        <h3>Yerevan, Garni & Lake Sevan</h3>
+                        <div class="package-info">
+                            <span><i class="fa-solid fa-clock"></i> 5 Days / 4 Nights</span>
+                            <span><i class="fa-solid fa-user-group"></i> Group / Private</span>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Explore ancient temples, mountain lakes, and the vibrant street life of Yerevan.</p>
+                        <div class="package-footer">
+                            <span class="price">$350 <small>/person</small></span>
+                            <button onclick="openModal('Yerevan Tour')" class="btn btn-navy" style="padding: 8px 18px; font-size: 0.8rem;">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 2 -->
+                <div class="package-card">
+                    <div class="package-img" style="background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=80');">
+                        <span class="package-badge">Cultural</span>
+                    </div>
+                    <div class="package-content">
+                        <h3>Tatev & Wine Region Tour</h3>
+                        <div class="package-info">
+                            <span><i class="fa-solid fa-clock"></i> 3 Days / 2 Nights</span>
+                            <span><i class="fa-solid fa-wine-glass"></i> Wine Tasting</span>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Ride the Wings of Tatev aerial tramway and sample traditional Areni wines.</p>
+                        <div class="package-footer">
+                            <span class="price">$280 <small>/person</small></span>
+                            <button onclick="openModal('Tatev Tour')" class="btn btn-navy" style="padding: 8px 18px; font-size: 0.8rem;">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 3 -->
+                <div class="package-card">
+                    <div class="package-img" style="background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80');">
+                        <span class="package-badge">International</span>
+                    </div>
+                    <div class="package-content">
+                        <h3>Dubai Luxury Getaway</h3>
+                        <div class="package-info">
+                            <span><i class="fa-solid fa-clock"></i> 6 Days / 5 Nights</span>
+                            <span><i class="fa-solid fa-plane"></i> Flight Included</span>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Complete Dubai package with desert safari, hotel, and tourist visa included.</p>
+                        <div class="package-footer">
+                            <span class="price">$750 <small>/person</small></span>
+                            <button onclick="openModal('Dubai Getaway')" class="btn btn-navy" style="padding: 8px 18px; font-size: 0.8rem;">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- VISA & JOBS SECTION -->
+    <section class="section-padding" id="visa">
+        <div class="container">
+            <div class="split-section">
+                
+                <!-- Visa Assistance -->
+                <div class="info-box">
+                    <h3><i class="fa-solid fa-passport"></i> Visa Assistance</h3>
+                    <p style="margin-bottom: 20px;">We take the stress out of visa processing with high success rates and hassle-free documentation support.</p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Schengen Tourist & Business Visas</li>
+                        <li><i class="fa-solid fa-circle-check"></i> UAE & Gulf Express Visas</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Armenia Residence & Entry Visas</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Complete Embassy Document Check</li>
+                    </ul>
+                    <button onclick="openModal('Visa Application')" class="btn btn-gold">Apply For Visa</button>
+                </div>
+
+                <!-- Job Vacancies -->
+                <div class="info-box" id="jobs">
+                    <h3><i class="fa-solid fa-briefcase"></i> Job Vacancies</h3>
+                    <p style="margin-bottom: 20px;">Looking for international employment? We connect skilled professionals with overseas opportunities.</p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Hospitality & Tourism Jobs in UAE/Armenia</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Skilled Labor & Construction Roles</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Verified Employers & Legal Contracts</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Work Permit & Visa Sponsorship Guidance</li>
+                    </ul>
+                    <button onclick="openModal('Job Application / CV Upload')" class="btn btn-navy">Submit Your CV</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>SUNDAY INFINITY</h4>
+                    <p>Your trusted travel and agency partner in Yerevan, Armenia. Making global travel and career dreams come true.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#packages">Tour Packages</a></li>
+                        <li><a href="#visa">Visa Services</a></li>
+                        <li><a href="#jobs">Job Listings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p><i class="fa-solid fa-location-dot" style="color: var(--primary-gold);"></i> Yerevan, Armenia</p>
+                    <p><i class="fa-solid fa-phone" style="color: var(--primary-gold);"></i> +374 XX XXXXXX</p>
+                    <p><i class="fa-solid fa-envelope" style="color: var(--primary-gold);"></i> info@sundayinfinity.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 Sunday Infinity Tours and Travels. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/37400000000" class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- INQUIRY / BOOKING MODAL -->
+    <div class="modal" id="inquiryModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle" style="color: var(--navy-blue); margin-bottom: 20px;">Quick Inquiry</h3>
+            <form onsubmit="submitForm(event)">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Your Name</label>
+                    <input type="text" required placeholder="John Doe">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Phone / WhatsApp</label>
+                    <input type="tel" required placeholder="+374...">
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>Details / Message</label>
+                    <textarea style="padding:10px; border-radius:8px; border:1px solid #ccc; font-family:inherit;" rows="4" placeholder="Tell us about your requirements..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-gold" style="width: 100%;">Submit Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Modal functions
+        function openModal(serviceName) {
+            document.getElementById('modalTitle').innerText = 'Inquiry: ' + serviceName;
+            document.getElementById('inquiryModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('inquiryModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            const modal = document.getElementById('inquiryModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Search Form Handling
+        function handleSearch(event) {
+            event.preventDefault();
+            const service = document.getElementById('service-type').value;
+            if(service === 'tour') {
+                document.getElementById('packages').scrollIntoView();
+            } else if(service === 'visa') {
+                document.getElementById('visa').scrollIntoView();
+            } else if(service === 'job') {
+                document.getElementById('jobs').scrollIntoView();
+            }
+        }
+
+        // Submission Simulation
+        function submitForm(event) {
+            event.preventDefault();
+            alert('Thank you! Your request has been sent to Sunday Infinity Tours and Travels. We will contact you shortly.');
+            closeModal();
+        }
+    </script>
+</body>
+</html>

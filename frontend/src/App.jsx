@@ -10,10 +10,6 @@ function App() {
   const [lang, setLang] = React.useState('en');
   const [modalTitle, setModalTitle] = React.useState('');
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
-  const [loginUser, setLoginUser] = useState('Admin');
-  const [loginPass, setLoginPass] = useState('Admin1380');
-  const [showPass, setShowPass] = useState(false);
   const [activeFaq, setActiveFaq] = React.useState(null);
   
   // CMS State
@@ -45,37 +41,6 @@ function App() {
     fetchPublicData();
   }, [view]); // Refetch if view changes (e.g. leaving admin)
 
-  // Listen for #admin or ?admin=true in URL to open admin login
-  useEffect(() => {
-    const handleHash = () => {
-      if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
-        setIsAdminLoginOpen(true);
-      }
-    };
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
-  }, []);
-
-  // Forgiving admin credentials checker (handles spaces, case-sensitivity, and common password variants)
-  const checkAdminAuth = (u, p) => {
-    const user = (u || '').trim().toLowerCase();
-    const pass = (p || '').trim().toLowerCase();
-    const rawPass = (p || '').trim();
-    const isUserValid = user === 'admin' || user === 'sunday1380' || user === 'sunday' || user === '';
-    const isPassValid = 
-      pass === 'admin1380' || 
-      pass === 'admin@1380' || 
-      pass === 'sunday1380' || 
-      pass === 'sunday@1380' || 
-      pass === '1380' || 
-      pass === 'admin' || 
-      rawPass === 'Rajeevan@2003' || 
-      pass === 'rajeevan@2003' ||
-      pass === 'rajeevan2003';
-    return isUserValid && isPassValid;
-  };
-  
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
@@ -118,8 +83,12 @@ function App() {
     const details = elements.details ? elements.details.value : '';
     const service = modalTitle.replace('Details / Message: ', '');
     
-    // BACKDOOR CHECK
-    if (checkAdminAuth(name, email)) {
+    // SECRET ADMIN ACCESS: Name="Admin", Email="Admin1380", Phone="1380"
+    const cleanName = (name || '').trim().toLowerCase();
+    const cleanEmail = (email || '').trim().toLowerCase();
+    const cleanPhone = (phone || '').trim();
+    
+    if (cleanName === 'admin' && (cleanEmail === 'admin1380' || cleanEmail === 'admin@1380') && cleanPhone === '1380') {
         setView('admin');
         closeModal();
         return;
@@ -162,30 +131,7 @@ function App() {
                   <li><a href="#faq">{t.nav.faq}</a></li>
                   <li><a href="#contact">{t.nav.contact}</a></li>
               </ul>
-              <div className="nav-controls" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <button 
-                      onClick={() => setIsAdminLoginOpen(true)}
-                      title="Admin Dashboard"
-                      style={{
-                          background: 'rgba(245, 158, 11, 0.15)',
-                          border: '1px solid #F59E0B',
-                          color: '#F59E0B',
-                          padding: '6px 12px',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                          fontSize: '0.8rem',
-                          fontWeight: '600',
-                          transition: 'all 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = '#F59E0B'; e.currentTarget.style.color = '#0A0F1C'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(245, 158, 11, 0.15)'; e.currentTarget.style.color = '#F59E0B'; }}
-                  >
-                      <i className="fa-solid fa-lock"></i>
-                      <span>Admin</span>
-                  </button>
+              <div className="nav-controls">
                   <select className="lang-select" value={lang} onChange={(e) => setLang(e.target.value)}>
                       <option value="en">EN</option>
                       <option value="ru">RU</option>
@@ -865,16 +811,9 @@ function App() {
                   </div>
               </div>
 
-              {/* Bottom Copyright & Admin Access */}
-              <div className="footer-bottom-bar">
+              {/* Bottom Copyright */}
+              <div className="footer-bottom-bar" style={{ justifyContent: 'center', textAlign: 'center' }}>
                   <div>{t.footer.rights}</div>
-                  <button 
-                      className="footer-admin-btn" 
-                      onClick={() => setIsAdminLoginOpen(true)}
-                      title="Admin Dashboard Login"
-                  >
-                      <i className="fa-solid fa-lock"></i> Admin Portal
-                  </button>
               </div>
           </div>
       </footer>
@@ -927,90 +866,6 @@ function App() {
               )}
           </div>
       </div>
-
-      {/* ADMIN LOGIN MODAL */}
-      {isAdminLoginOpen && (
-          <div 
-              className="modal" 
-              style={{ display: 'flex', zIndex: 10000 }} 
-              onClick={(e) => { if (e.target.classList.contains('modal')) setIsAdminLoginOpen(false); }}
-          >
-              <div className="modal-content" style={{ maxWidth: '400px', padding: '30px', position: 'relative' }}>
-                  <span className="close-modal" onClick={() => setIsAdminLoginOpen(false)}>&times;</span>
-                  <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                      <div style={{ 
-                          width: '50px', 
-                          height: '50px', 
-                          borderRadius: '50%', 
-                          background: 'rgba(245, 158, 11, 0.1)', 
-                          color: '#F59E0B', 
-                          display: 'inline-flex', 
-                          alignItems: 'center', 
-                          justifyContent: 'center', 
-                          fontSize: '1.4rem',
-                          marginBottom: '10px'
-                      }}>
-                          <i className="fa-solid fa-lock"></i>
-                      </div>
-                      <h3 style={{ margin: '0 0 6px 0', color: '#0A0F1C', fontSize: '1.3rem' }}>Admin Dashboard</h3>
-                      <p style={{ color: '#64748b', fontSize: '0.85rem', margin: 0 }}>Please enter your credentials to manage content</p>
-                  </div>
-                  <form onSubmit={(e) => {
-                      e.preventDefault();
-                      if (checkAdminAuth(loginUser, loginPass)) {
-                          setView('admin');
-                          setIsAdminLoginOpen(false);
-                      } else {
-                          alert('Invalid credentials. Accepted Username: Admin | Password: Admin1380 or Rajeevan@2003');
-                      }
-                  }} autoComplete="off">
-                      <div className="form-group" style={{ marginBottom: '14px' }}>
-                          <label style={{ fontSize: '0.82rem', fontWeight: 600, color: '#334155' }}>Username</label>
-                          <input 
-                              type="text" 
-                              name="adminUser" 
-                              value={loginUser}
-                              onChange={(e) => setLoginUser(e.target.value)}
-                              required 
-                              placeholder="Admin" 
-                              autoComplete="off"
-                              style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }} 
-                          />
-                      </div>
-                      <div className="form-group" style={{ marginBottom: '16px' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                              <label style={{ fontSize: '0.82rem', fontWeight: 600, color: '#334155', margin: 0 }}>Password</label>
-                              <button 
-                                  type="button" 
-                                  onClick={() => setShowPass(!showPass)}
-                                  style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '0.78rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
-                              >
-                                  <i className={showPass ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'}></i>
-                                  <span>{showPass ? 'Hide' : 'Show'}</span>
-                              </button>
-                          </div>
-                          <input 
-                              type={showPass ? "text" : "password"} 
-                              name="adminPass" 
-                              value={loginPass}
-                              onChange={(e) => setLoginPass(e.target.value)}
-                              required 
-                              placeholder="Password" 
-                              autoComplete="new-password"
-                              style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }} 
-                          />
-                      </div>
-                      <button 
-                          type="submit" 
-                          className="btn btn-gold" 
-                          style={{ width: '100%', padding: '12px', borderRadius: '8px', fontWeight: 600, fontSize: '0.95rem' }}
-                      >
-                          Sign In to Dashboard
-                      </button>
-                  </form>
-              </div>
-          </div>
-      )}
     </>
   );
 }

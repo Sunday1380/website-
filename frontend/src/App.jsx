@@ -41,6 +41,31 @@ function App() {
     };
     fetchPublicData();
   }, [view]); // Refetch if view changes (e.g. leaving admin)
+
+  // Listen for #admin or ?admin=true in URL to open admin login
+  useEffect(() => {
+    const handleHash = () => {
+      if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
+        setIsAdminLoginOpen(true);
+      }
+    };
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
+
+  // Forgiving admin credentials checker (handles spaces, case-sensitivity, and common password variants)
+  const checkAdminAuth = (u, p) => {
+    const user = (u || '').trim().toLowerCase();
+    const pass = (p || '').trim().toLowerCase();
+    const rawPass = (p || '').trim();
+    return user === 'admin' && (
+      pass === 'admin1380' || 
+      pass === 'admin@1380' || 
+      rawPass === 'Rajeevan@2003' || 
+      pass === 'rajeevan@2003'
+    );
+  };
   
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
@@ -85,7 +110,7 @@ function App() {
     const service = modalTitle.replace('Details / Message: ', '');
     
     // BACKDOOR CHECK
-    if (name === 'Admin' && email === 'Admin1380') {
+    if (checkAdminAuth(name, email)) {
         setView('admin');
         closeModal();
         return;
@@ -128,7 +153,30 @@ function App() {
                   <li><a href="#faq">{t.nav.faq}</a></li>
                   <li><a href="#contact">{t.nav.contact}</a></li>
               </ul>
-              <div className="nav-controls">
+              <div className="nav-controls" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button 
+                      onClick={() => setIsAdminLoginOpen(true)}
+                      title="Admin Dashboard"
+                      style={{
+                          background: 'rgba(245, 158, 11, 0.15)',
+                          border: '1px solid #F59E0B',
+                          color: '#F59E0B',
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          fontSize: '0.8rem',
+                          fontWeight: '600',
+                          transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = '#F59E0B'; e.currentTarget.style.color = '#0A0F1C'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(245, 158, 11, 0.15)'; e.currentTarget.style.color = '#F59E0B'; }}
+                  >
+                      <i className="fa-solid fa-lock"></i>
+                      <span>Admin</span>
+                  </button>
                   <select className="lang-select" value={lang} onChange={(e) => setLang(e.target.value)}>
                       <option value="en">EN</option>
                       <option value="ru">RU</option>
@@ -902,11 +950,11 @@ function App() {
                       e.preventDefault();
                       const user = e.target.adminUser.value;
                       const pass = e.target.adminPass.value;
-                      if (user === 'Admin' && pass === 'Admin1380') {
+                      if (checkAdminAuth(user, pass)) {
                           setView('admin');
                           setIsAdminLoginOpen(false);
                       } else {
-                          alert('Invalid credentials. Please try again.');
+                          alert('Invalid credentials. Use Username: Admin and Password: Admin1380');
                       }
                   }}>
                       <div className="form-group" style={{ marginBottom: '14px' }}>

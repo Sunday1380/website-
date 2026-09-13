@@ -19,11 +19,18 @@ export default function AdminPanel({ onLogout }) {
         try {
             const res = await fetch(`${API_BASE}/api/admin/data`);
             const result = await res.json();
-            setData(result);
-            setSettings({ whatsapp: result.settings.whatsapp, adminEmail: result.settings.adminEmail, appPassword: '' });
-            setLoading(false);
+            setData(result || { enquiries: [], packages: [], settings: {} });
+            if (result && result.settings) {
+                setSettings({ 
+                    whatsapp: result.settings.whatsapp || '', 
+                    adminEmail: result.settings.adminEmail || '', 
+                    appPassword: '' 
+                });
+            }
         } catch (e) {
-            console.error(e);
+            console.error('Failed to load admin data:', e);
+        } finally {
+            setLoading(false);
         }
     };
 

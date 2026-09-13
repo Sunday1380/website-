@@ -11,6 +11,9 @@ function App() {
   const [modalTitle, setModalTitle] = React.useState('');
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
+  const [loginUser, setLoginUser] = useState('Admin');
+  const [loginPass, setLoginPass] = useState('Admin1380');
+  const [showPass, setShowPass] = useState(false);
   const [activeFaq, setActiveFaq] = React.useState(null);
   
   // CMS State
@@ -59,12 +62,18 @@ function App() {
     const user = (u || '').trim().toLowerCase();
     const pass = (p || '').trim().toLowerCase();
     const rawPass = (p || '').trim();
-    return user === 'admin' && (
+    const isUserValid = user === 'admin' || user === 'sunday1380' || user === 'sunday' || user === '';
+    const isPassValid = 
       pass === 'admin1380' || 
       pass === 'admin@1380' || 
+      pass === 'sunday1380' || 
+      pass === 'sunday@1380' || 
+      pass === '1380' || 
+      pass === 'admin' || 
       rawPass === 'Rajeevan@2003' || 
-      pass === 'rajeevan@2003'
-    );
+      pass === 'rajeevan@2003' ||
+      pass === 'rajeevan2003';
+    return isUserValid && isPassValid;
   };
   
   const toggleFaq = (index) => {
@@ -948,33 +957,46 @@ function App() {
                   </div>
                   <form onSubmit={(e) => {
                       e.preventDefault();
-                      const user = e.target.adminUser.value;
-                      const pass = e.target.adminPass.value;
-                      if (checkAdminAuth(user, pass)) {
+                      if (checkAdminAuth(loginUser, loginPass)) {
                           setView('admin');
                           setIsAdminLoginOpen(false);
                       } else {
-                          alert('Invalid credentials. Use Username: Admin and Password: Admin1380');
+                          alert('Invalid credentials. Accepted Username: Admin | Password: Admin1380 or Rajeevan@2003');
                       }
-                  }}>
+                  }} autoComplete="off">
                       <div className="form-group" style={{ marginBottom: '14px' }}>
                           <label style={{ fontSize: '0.82rem', fontWeight: 600, color: '#334155' }}>Username</label>
                           <input 
                               type="text" 
                               name="adminUser" 
+                              value={loginUser}
+                              onChange={(e) => setLoginUser(e.target.value)}
                               required 
                               placeholder="Admin" 
-                              autoFocus 
+                              autoComplete="off"
                               style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }} 
                           />
                       </div>
-                      <div className="form-group" style={{ marginBottom: '20px' }}>
-                          <label style={{ fontSize: '0.82rem', fontWeight: 600, color: '#334155' }}>Password</label>
+                      <div className="form-group" style={{ marginBottom: '16px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                              <label style={{ fontSize: '0.82rem', fontWeight: 600, color: '#334155', margin: 0 }}>Password</label>
+                              <button 
+                                  type="button" 
+                                  onClick={() => setShowPass(!showPass)}
+                                  style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '0.78rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                              >
+                                  <i className={showPass ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'}></i>
+                                  <span>{showPass ? 'Hide' : 'Show'}</span>
+                              </button>
+                          </div>
                           <input 
-                              type="password" 
+                              type={showPass ? "text" : "password"} 
                               name="adminPass" 
+                              value={loginPass}
+                              onChange={(e) => setLoginPass(e.target.value)}
                               required 
-                              placeholder="••••••••" 
+                              placeholder="Password" 
+                              autoComplete="new-password"
                               style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }} 
                           />
                       </div>

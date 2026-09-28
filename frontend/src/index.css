@@ -127,10 +127,26 @@
     left: 0;
     width: 100%;
     background-color: #0A0F1C;
-    padding: 20px 0;
+    padding: 12px 0;
     z-index: 1000;
     box-shadow: none;
     border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: var(--transition);
+}
+
+.navbar-logo-img {
+    height: 68px;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+    display: block;
+    object-fit: contain;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.navbar-logo-img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.3);
 }
 
         .navbar .container {
@@ -207,7 +223,9 @@
     min-height: 600px;
     display: flex;
     align-items: center;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 0;
     overflow: hidden;
 }
 .hero-video {
@@ -232,6 +250,9 @@
     position: relative;
     z-index: 2;
 }
+
+
+
 
         .hero-content h1 {
     color: #ffffff;
@@ -597,9 +618,12 @@
 
         /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
+            .navbar { padding: 10px 0; }
+            .navbar-logo-img { height: 52px; }
+            
             .hero-content h1 { font-size: 2.2rem; }
             .split-section { grid-template-columns: 1fr; }
-            .nav-links { display: none; } /* Mobile menu toggler can be added */
+            
             .search-bar-container { margin-top: 20px; }
         }
     
@@ -1298,6 +1322,8 @@ footer {
 }
 
 @media (max-width: 480px) {
+    .navbar-logo-img { height: 46px; }
+    
     .faq-animated-box {
         padding: 15px;
     }
@@ -1339,3 +1365,243 @@ footer {
     border-color: rgba(245, 166, 35, 0.3) !important;
 }
 
+
+
+
+
+/* Parallax Scroll Overlap Setup */
+section:not(#home) {
+    position: relative;
+    z-index: 10;
+    background-color: var(--bg-light);
+}
+footer {
+    position: relative;
+    z-index: 10;
+    /* background-color is managed by footer styles */
+}
+#social-showcase {
+    background-color: #0A0F1C !important;
+}
+#services {
+    box-shadow: 0 -20px 50px rgba(0,0,0,0.1);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.nav-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.75rem;
+    color: var(--primary-gold);
+    letter-spacing: 0.5px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: 15px;
+    margin-left: 5px;
+}
+.nav-contact-info i {
+    width: 14px;
+    text-align: center;
+    margin-right: 5px;
+}
+@media (max-width: 1024px) {
+    .nav-contact-info {
+        display: none;
+    }
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-btn {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--white);
+    cursor: pointer;
+    z-index: 1002;
+    margin-left: 15px;
+}
+
+@media (max-width: 992px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 250px;
+        background-color: #0A0F1C;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease;
+        padding: 50px 20px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        z-index: 1001;
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links li {
+        margin: 20px 0;
+    }
+    
+    .nav-links a {
+        font-size: 1.2rem;
+    }
+    
+    .nav-controls {
+        z-index: 1002;
+    }
+}
+
+/* ==================== PROMO WIDGET ==================== */
+.promo-widget {
+    position: fixed;
+    right: 30px;
+    bottom: 100px; /* positioned above whatsapp widget */
+    width: 180px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(10, 15, 28, 0.4);
+    z-index: 9999;
+    animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.promo-video-element {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000;
+}
+
+.promo-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    font-size: 14px;
+}
+
+.promo-close:hover {
+    background: rgba(231, 76, 60, 0.9);
+    transform: scale(1.1);
+}
+
+
+
+@media (max-width: 768px) {
+    .promo-widget {
+        width: 140px;
+        right: 20px;
+        bottom: 90px;
+    }
+}
+
+.promo-mute-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    font-size: 13px;
+}
+
+.promo-mute-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+/* ==================== PHOTO GALLERY ==================== */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+/* Make some items span differently for a masonry feel if there's enough space */
+@media (min-width: 900px) {
+    .gallery-item:nth-child(1), .gallery-item:nth-child(4) {
+        grid-column: span 2;
+    }
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    height: 300px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    background-color: #f1f5f9;
+    cursor: pointer;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 15, 28, 0.6) 0%, rgba(10, 15, 28, 0) 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.gallery-overlay i {
+    color: #fff;
+    font-size: 1.5rem;
+    transform: translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-item:hover .gallery-overlay i {
+    transform: translateY(0);
+}

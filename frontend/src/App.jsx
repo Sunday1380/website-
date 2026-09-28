@@ -7,10 +7,29 @@ import API_BASE from './apiConfig';
 import { ChatGptIcon, ClaudeIcon, GeminiIcon } from './AiIcons';
 
 function App() {
-  const [lang, setLang] = React.useState('en');
-  const [modalTitle, setModalTitle] = React.useState('');
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [activeFaq, setActiveFaq] = React.useState(null);
+  const [lang, setLang] = useState('en');
+  const [modalTitle, setModalTitle] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeFaq, setActiveFaq] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showPromo, setShowPromo] = useState(false);
+  const [hasClosedPromo, setHasClosedPromo] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!hasClosedPromo) {
+        if (window.scrollY > 400) {
+          setShowPromo(true);
+        } else {
+          setShowPromo(false);
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasClosedPromo]);
+
+  const [isMuted, setIsMuted] = useState(true);
   
   // CMS State
   const [view, setView] = useState('public');
@@ -122,16 +141,29 @@ function App() {
     <>
       <nav className="navbar">
           <div className="container nav-container">
-              <a href="#" className="logo"><img src={logo} alt="Sunday Infinity Logo" style={{ height: "50px", width: "auto" }} /></a>
-              <ul className="nav-links">
-                  <li><a href="#home">{t.nav.home}</a></li>
-                  <li><a href="#services">{t.nav.services}</a></li>
-                  <li><a href="#packages">{t.nav.packages}</a></li>
-                  <li><a href="#jobs">{t.nav.jobs}</a></li>
-                  <li><a href="#faq">{t.nav.faq}</a></li>
-                  <li><a href="#contact">{t.nav.contact}</a></li>
+              <div className="nav-brand">
+              <a href="#" className="logo">
+                  <img src={logo} alt="Sunday Infinity Logo" className="navbar-logo-img" />
+              </a>
+              <div className="nav-contact-info">
+                  <div><a href="https://maps.app.goo.gl/SVpfctihMVLyiPDH7?g_st=aw" target="_blank" rel="noopener noreferrer" style={{color: 'inherit', textDecoration: 'none'}}><i className="fa-solid fa-location-dot"></i> Yerevan, Center, Baghramyan Avenue Station</a></div>
+                  <div><i className="fa-solid fa-phone"></i> +374 93 964458 | +374 99 64458</div>
+                  <div><i className="fa-solid fa-envelope"></i> info@sundayinfinity.com</div>
+              </div>
+          </div>
+              
+              <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
+                  <li><a href="#home" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.home}</a></li>
+                  <li><a href="#services" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.services}</a></li>
+                  <li><a href="#packages" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.packages}</a></li>
+                  <li><a href="#jobs" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.jobs}</a></li>
+                  <li><a href="#faq" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.faq}</a></li>
+                  <li><a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.contact}</a></li>
               </ul>
-              <div className="nav-controls">
+              <div className="nav-controls" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                  <div className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                      <i className={`fa-solid ${isMobileMenuOpen ? 'fa-xmark' : 'fa-bars'}`}></i>
+                  </div>
                   <select className="lang-select" value={lang} onChange={(e) => setLang(e.target.value)}>
                       <option value="en">EN</option>
                       <option value="ru">RU</option>
@@ -150,6 +182,7 @@ function App() {
               <h1>EXPLORE THE WORLD WITH <br/><span style={{color: 'var(--primary-gold)'}}>SUNDAY INFINITY</span></h1>
               <p>{t.hero.subtitle}</p>
           </div>
+          
       </section>
 
       <section id="services" className="section-padding bg-light">
@@ -160,21 +193,21 @@ function App() {
               </div>
               <div className="services-grid">
                   <div className="service-card" style={{ padding: 0, overflow: 'hidden', border: 'none', borderRadius: '12px', background: '#fff', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-                      <img src="https://images.pexels.com/photos/1371360/pexels-photo-1371360.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Global Tours" style={{ width: '100%', height: '220px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.src = 'https://images.pexels.com/photos/1371360/pexels-photo-1371360.jpeg?auto=compress&cs=tinysrgb&w=800'; }} />
+                      <img src="/places/global-tours.jpg" alt="Global Tours" style={{ width: "100%", height: "220px", objectFit: "cover" }} />
                       <div className="service-card-content" style={{ padding: '30px 20px', textAlign: 'center' }}>
                           <h3 style={{ fontSize: '1.4rem', color: '#0A0F1C', marginBottom: '15px' }}>{t.services.tours || 'Global Tours'}</h3>
                           <p style={{ color: '#64748b', lineHeight: '1.6', fontSize: '0.95rem' }}>{t.services.toursDesc || 'Unforgettable journeys across Armenia, Georgia, Europe and beyond.'}</p>
                       </div>
                   </div>
                   <div className="service-card" style={{ padding: 0, overflow: 'hidden', border: 'none', borderRadius: '12px', background: '#fff', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-                      <img src="https://images.pexels.com/photos/3769138/pexels-photo-3769138.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Visa Support" style={{ width: '100%', height: '220px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.src = 'https://images.pexels.com/photos/3769138/pexels-photo-3769138.jpeg?auto=compress&cs=tinysrgb&w=800'; }} />
+                      <img src="/places/visa-support.jpg" alt="Visa Support" style={{ width: "100%", height: "220px", objectFit: "cover" }} />
                       <div className="service-card-content" style={{ padding: '30px 20px', textAlign: 'center' }}>
                           <h3 style={{ fontSize: '1.4rem', color: '#0A0F1C', marginBottom: '15px' }}>{t.services.visa || 'Visa Support'}</h3>
                           <p style={{ color: '#64748b', lineHeight: '1.6', fontSize: '0.95rem' }}>{t.services.visaDesc || 'Expert guidance for tourist, work, and student visas worldwide.'}</p>
                       </div>
                   </div>
                   <div className="service-card" style={{ padding: 0, overflow: 'hidden', border: 'none', borderRadius: '12px', background: '#fff', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-                      <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Job Placement" style={{ width: '100%', height: '220px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.src = 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800'; }} />
+                      <img src="/places/job-placement.jpg" alt="Job Placement" style={{ width: "100%", height: "220px", objectFit: "cover" }} />
                       <div className="service-card-content" style={{ padding: '30px 20px', textAlign: 'center' }}>
                           <h3 style={{ fontSize: '1.4rem', color: '#0A0F1C', marginBottom: '15px' }}>{t.services.jobs || 'Job Placement'}</h3>
                           <p style={{ color: '#64748b', lineHeight: '1.6', fontSize: '0.95rem' }}>{t.services.jobsDesc || 'Connecting talent with international career opportunities.'}</p>
@@ -217,9 +250,7 @@ function App() {
                                       src={pkg.img} 
                                       alt={pkg.title} 
                                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }} 
-                                      onError={(e) => { 
-                                          e.currentTarget.src = 'https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=800'; 
-                                      }}
+                                      
                                       onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.06)'; }}
                                       onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
                                   />
@@ -322,7 +353,7 @@ function App() {
           <div className="container">
               <div className="split-section animate-fade-in-up">
                   <div className="info-box" id="visa-box" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                      <img src="https://images.pexels.com/photos/7235894/pexels-photo-7235894.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Visa" style={{ width: '100%', height: '200px', objectFit: 'cover', borderBottom: '3px solid #F59E0B' }} onError={(e) => { e.currentTarget.src = 'https://images.pexels.com/photos/7235894/pexels-photo-7235894.jpeg?auto=compress&cs=tinysrgb&w=800'; }} />
+                      <img src="/places/visa-support.jpg" alt="Visa" style={{ width: "100%", height: "200px", objectFit: "cover", borderBottom: "3px solid #F59E0B" }} />
                       <div style={{ padding: '30px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                           <h3><i className="fa-solid fa-passport"></i> {t.split.visaTitle}</h3>
                           <ul className="feature-list" style={{ flex: 1 }}>
@@ -334,7 +365,7 @@ function App() {
                       </div>
                   </div>
                   <div className="info-box" id="jobs" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                      <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Jobs" style={{ width: '100%', height: '200px', objectFit: 'cover', borderBottom: '3px solid #0A0F1C' }} onError={(e) => { e.currentTarget.src = 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800'; }} />
+                      <img src="/places/job-placement.jpg" alt="Jobs" style={{ width: "100%", height: "200px", objectFit: "cover", borderBottom: "3px solid #0A0F1C" }} />
                       <div style={{ padding: '30px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                           <h3><i className="fa-solid fa-briefcase"></i> {t.split.jobTitle}</h3>
                           <ul className="feature-list" style={{ flex: 1 }}>
@@ -442,9 +473,26 @@ function App() {
           </div>
       </section>
 
-      
+      <section id="gallery" className="section-padding" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 10 }}>
+          <div className="container">
+              <div className="section-header">
+                  <span style={{ color: '#F5A623', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.85rem', display: 'block', marginBottom: '8px' }}>WHAT WE OFFER</span>
+                  <h2 style={{ fontSize: '2.5rem', color: '#0A0F1C', letterSpacing: '1px' }}>Discover Our Offerings</h2>
+                  <p style={{ color: '#64748b', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>Explore our curated selection of tours, visa assistance, and international job opportunities.</p>
+              </div>
+              <div className="gallery-grid">
+                  {[1, 2, 3, 4, 5, 6, 7].map(num => (
+                      <div key={num} className="gallery-item">
+                          <img src={`/gallery/gallery-img${num}.jpg`} alt={`Journey highlight ${num}`} loading="lazy" />
+                          <div className="gallery-overlay">
+                              <i className="fa-brands fa-instagram"></i>
+                          </div>
+                      </div>
+                  ))}
+              </div>
+          </div>
+      </section>
 
-      
       <section id="social-showcase" className="section-padding" style={{ background: '#0A0F1C', color: '#ffffff', position: 'relative', overflow: 'hidden' }}>
           {/* Subtle background glow circles */}
           <div style={{ position: 'absolute', top: '-100px', left: '10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
@@ -789,7 +837,7 @@ function App() {
                       <h4 className="footer-col-head">{t.footer.contact}</h4>
                       <div className="footer-contact-item">
                           <i className="fa-solid fa-location-dot"></i>
-                          <span>Yerevan, Center, Baghramyan Avenue Station</span>
+                          <a href="https://maps.app.goo.gl/SVpfctihMVLyiPDH7?g_st=aw" target="_blank" rel="noopener noreferrer" style={{color: 'inherit', textDecoration: 'none'}}><span>Yerevan, Center, Baghramyan Avenue Station</span></a>
                       </div>
                       <div className="footer-contact-item">
                           <i className="fa-solid fa-phone"></i>
@@ -866,6 +914,20 @@ function App() {
               )}
           </div>
       </div>
+
+      {showPromo && (
+          <div className="promo-widget">
+              <button className="promo-close" onClick={() => { setShowPromo(false); setHasClosedPromo(true); }} aria-label="Close promo video">
+                  <i className="fa-solid fa-xmark"></i>
+              </button>
+              <button className="promo-mute-btn" onClick={() => setIsMuted(!isMuted)} aria-label="Toggle mute">
+                  <i className={`fa-solid ${isMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
+              </button>
+              <video autoPlay loop muted={isMuted} playsInline className="promo-video-element">
+                  <source src="/promo-video.mp4" type="video/mp4" />
+              </video>
+          </div>
+      )}
     </>
   );
 }

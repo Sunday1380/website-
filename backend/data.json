@@ -1,6 +1,24 @@
 {
   "enquiries": [
     {
+      "id": 1789330699525,
+      "date": "2026-09-13T20:18:19.525Z",
+      "service": "Visa Assistance",
+      "name": "Athul K",
+      "email": "dreamreader462@gmail.com",
+      "phone": "8088895784",
+      "details": ""
+    },
+    {
+      "id": 1789330698670,
+      "date": "2026-09-13T20:18:18.670Z",
+      "service": "Visa Assistance",
+      "name": "Athul K",
+      "email": "dreamreader462@gmail.com",
+      "phone": "8088895784",
+      "details": ""
+    },
+    {
       "id": 1789325157197,
       "date": "2026-09-13T18:45:57.197Z",
       "service": "European Getaway",
@@ -15,7 +33,7 @@
       "id": 1,
       "title": "Taste of Georgia",
       "location": "Tbilisi, Georgia",
-      "img": "https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "img": "/places/georgia.jpg",
       "features": "4 Days, 3 Nights, Flights Included, Guided Tours",
       "details": "Day 1: Arrival in Tbilisi, private airport pickup, and historic Old Town city tour.\\nDay 2: Scenic wine tasting across Kakheti and Sighnaghi with vineyard lunch.\\nDay 3: Exploring the Caucasus mountains, Gergeti Trinity Church, and Kazbegi.\\nDay 4: Thermal sulfur bath relaxation, souvenir shopping, and departure.\\n\\n*Premium 24/7 Concierge Support included.*"
     },
@@ -23,7 +41,7 @@
       "id": 2,
       "title": "Explore Armenia",
       "location": "Yerevan, Armenia",
-      "img": "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "img": "/places/armenia.jpg",
       "features": "5 Days, 4 Nights, 4-Star Hotel, Airport Transfers",
       "details": "Day 1: Arrival in Yerevan, check-in to 4-star boutique hotel, evening Republic Square fountain show.\\nDay 2: Historic Pagan Temple of Garni, Geghard Monastery (UNESCO), and traditional lavash baking class.\\nDay 3: Azure waters of Lake Sevan, Sevanavank monastery, and Dilijan national park.\\nDay 4: Cascade Complex, Vernissage arts market, and Ararat brandy tasting.\\nDay 5: Breakfast, airport transfer, and departure."
     },
@@ -31,7 +49,7 @@
       "id": 3,
       "title": "European Getaway",
       "location": "Paris & Swiss Alps",
-      "img": "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "img": "/places/paris.jpg",
       "features": "7 Days, Visa Assistance, Luxury Hotels, Guide",
       "details": "Day 1-3: Paris romantic highlights including Seine river cruise, Louvre VIP entry, and Montmartre walking tour.\\nDay 4-5: High-speed TGV rail through the Swiss countryside to Interlaken & Jungfraujoch (Top of Europe).\\nDay 6: Lucerne chapel bridge, lake cruise, and Swiss chocolate tasting.\\nDay 7: Zurich city tour and departure.\\n\\n*Complete Schengen visa preparation and documentation support included.*"
     }
